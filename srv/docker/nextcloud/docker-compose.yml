@@ -1,0 +1,127 @@
+name: nextcloud
+
+networks:
+  nextcloud:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: $SUBNET
+  palmcloud:
+    external: true
+
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    container_name: ${POSTGRES_CONTAINER}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    volumes:
+      - db:/var/lib/postgresql/data
+    env_file:
+      - ./config/postgres.env
+      - ./config/postgres.secrets.env
+    environment:
+      POSTGRES_INITDB_ARGS: --data-checksums
+    command: postgres -c 'shared_preload_libraries=pg_stat_statements' -c 'max_connections=200' -c 'shared_buffers=256MB'
+    networks:
+      - nextcloud
+
+  redis:
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - nextcloud
+
+  nextcloud:
+     image: nextcloud:latest
+     restart: unless-stopped
+     container_name: $NEXTCLOUD_CONTAINER
+     extra_hosts:
+       - "${DOMAIN}:${PROXY_IP}"
+     logging:
+       driver: "json-file"
+       options:
+         max-size: "10m"
+         max-file: "3"
+     volumes:
+       - nextcloud:/var/www/html
+       - ${NEXTCLOUD_DATA_DIR:-/mnt/data/nextcloud}:/var/www/html/data
+     env_file:
+       - ./config/postgres.env 
+       - ./config/postgres.secrets.env 
+     environment:
+       - POSTGRES_HOST=db
+       - REDIS_HOST=redis
+       - OVERWRITEPROTOCOL=https
+       - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN},${PROXY_IP}
+       - NEXTCLOUD_DATA_DIR=/var/www/html/data
+       - TRUSTED_PROXIES=${PROXY_IP}
+       - OVERWRITEHOST=${DOMAIN}
+     networks:
+       homelab:
+         ipv4_address: $NEXTCLOUD_IP
+       nextcloud:
+     depends_on:
+       - db
+       - redis
+
+  cron:
+     image: nextcloud:latest
+     restart: unless-stopped
+     volumes:
+       - nextcloud:/var/www/html
+       - ${NEXTCLOUD_DATA_DIR:-/mnt/data/nextcloud}:/var/www/html/data
+     entrypoint: /cron.sh
+     networks:
+       - nextcloud
+     depends_on:
+       - nextcloud
+
+  collabora:
+    image: collabora/code:latest
+    restart: unless-stopped
+    extra_hosts:
+      - "${DOMAIN}:${PROXY_IP}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    env_file:
+      - ./config/collabora.env
+      - ./config/collabora.secrets.env
+    environment:
+      - aliasgroup1=https://${DOMAIN}:443 
+      - domain=${DOMAIN_REGEX}
+      - extra_params=--o:ssl.enable=false --o:ssl.termination=true
+    cap_add:
+      - MKNOD
+    networks:
+      - nextcloud
+    depends_on:
+      - nextcloud
+
+  drawio:
+    image: jgraph/drawio:latest
+    restart: unless-stopped
+    networks:
+      - nextcloud
+    depends_on: 
+      - nextcloud
+
+volumes:
+  db:
+    name: nextcloud_db
+  nextcloud:
+    name: nextcloud_data

@@ -1,0 +1,45 @@
+palm.cloud {
+    # DrawIO
+    handle_path /drawio/* {
+	reverse_proxy nextcloud-drawio:8080
+    }
+
+    # Collabora Office 
+    handle /browser* {
+        reverse_proxy collabora:9980
+    }
+    
+    handle /hosting/discovery {
+        reverse_proxy collabora:9980
+    }
+    
+    handle /hosting/capabilities {
+        reverse_proxy collabora:9980
+    }
+    
+    handle /cool/* {
+        reverse_proxy collabora:9980
+    }
+    
+    handle /lool/* {
+        reverse_proxy collabora:9980
+    }
+
+    # Nextcloud (default route)
+    handle /* {
+        reverse_proxy nextcloud:80 {
+           header_up Host {host}
+           header_up X-Forwarded-Proto https
+           header_up X-Forwarded-For {remote_host}
+        }
+    }
+
+    tls /etc/ssl/certs/palm.cloud.crt /etc/ssl/private/palm.cloud.key
+}
+
+pihole.palm.cloud {
+    reverse_proxy pihole:80
+    # reverse_proxy 127.0.0.1:8081
+
+    tls /etc/ssl/certs/palm.cloud.crt /etc/ssl/private/palm.cloud.key
+}

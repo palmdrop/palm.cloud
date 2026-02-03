@@ -1,0 +1,7 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = true
+	excludesfile = ~/.gitignore
+[status]
+	showUntrackedFiles = no

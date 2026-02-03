@@ -1,0 +1,19 @@
+name: ssh
+
+services:
+  twingate-ssh-connector:
+    image: twingate/connector:latest
+    container_name: twingate-ssh-connector
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: unless-stopped
+    env_file:
+      - ./config/ssh.secrets.env
+    environment:
+      - TWINGATE_LABEL_DEPLOYED_BY=docker
+      - TWINGATE_LOG_ANALYTICS=v2
+      - TWINGATE_LOG_LEVEL=3
+    network_mode: host

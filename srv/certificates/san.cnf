@@ -1,0 +1,10 @@
+[req]
+distinguished_name=req
+req_extensions=req_ext
+prompt=no
+
+[req_ext]
+subjectAltName=@alt_names
+
+[alt_names]
+DNS.1=palm.cloud
