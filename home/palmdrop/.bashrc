@@ -22,6 +22,8 @@ fi
 unset rc
 
 alias ll='ls -lah'
-alias s='cd /home/palmdrop/server'
+alias s='cd /srv/'
 alias cgit='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=/'
 alias sudo-cgit='sudo /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=/'
+
+alias palm='just --justfile /srv/justfile --direnv-file /srv/server.env --working-directory=/srv/'
