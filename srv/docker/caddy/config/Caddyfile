@@ -38,9 +38,8 @@ palm.cloud {
 }
 
 
-# pihole.palm.cloud {
-#     reverse_proxy pihole:80
-#     # reverse_proxy 127.0.0.1:8081
-# 
-#     tls /etc/ssl/certs/palm.cloud.crt /etc/ssl/private/palm.cloud.key
-# }
+pihole.palm.cloud {
+    reverse_proxy pihole:80
+ 
+    tls /etc/ssl/certs/palm.cloud.crt /etc/ssl/private/palm.cloud.key
+}

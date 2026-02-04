@@ -4,9 +4,6 @@ networks:
   nextcloud:
     driver: bridge
     internal: true
-    #ipam:
-    #  config:
-    #    - subnet: $SUBNET
   palmcloud:
     external: true
 
@@ -33,6 +30,7 @@ services:
 
   redis:
     image: redis:7.4-alpine
+    container_name: nextcloud-redis
     restart: unless-stopped
     command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
     logging:
@@ -78,6 +76,7 @@ services:
 
   cron:
      image: nextcloud:latest
+     container_name: nextcloud-cron
      restart: unless-stopped
      volumes:
        - nextcloud:/var/www/html

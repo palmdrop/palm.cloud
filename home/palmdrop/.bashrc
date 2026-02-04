@@ -26,4 +26,4 @@ alias s='cd /srv/'
 alias cgit='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=/'
 alias sudo-cgit='sudo /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=/'
 
-alias palm='just --justfile /srv/justfile --direnv-file /srv/server.env --working-directory=/srv/'
+alias palm='just --justfile /srv/justfile --dotenv-filename /srv/server.env --working-directory=/srv/'

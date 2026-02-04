@@ -2,8 +2,11 @@
 
 source /srv/server.env
 
-# Create shared network
+# Create lab network
 docker network create \
 	--driver=bridge \
 	--subnet=$SUBNET \
-	palmcloud
+	$LAB_NETWORK
+
+# Infrastructure network
+docker network create $INFRA_NETWORK
