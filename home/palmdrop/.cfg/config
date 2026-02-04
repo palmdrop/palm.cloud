@@ -5,3 +5,12 @@
 	excludesfile = ~/.gitignore
 [status]
 	showUntrackedFiles = no
+[remote "origin"]
+	url = git@palmdrop.github.com:palmdrop/palm.cloud.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[remote "old"]
+	url = git@palmdrop.github.com:palmdrop/home-server.git
+	fetch = +refs/heads/*:refs/remotes/old/*
