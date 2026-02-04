@@ -1,30 +1,31 @@
+# Setup
+env: 
+	./scripts/docker/generate-env-files.sh 
+
 # Docker management
 up:
-	docker compose up -d
+	./scripts/docker/manage.sh start
 down:
-	docker compose down
+	./scripts/docker/manage.sh stop
 logs:
-	docker compose logs -f
+	./scripts/docker/manage.sh logs
 ps:
-	docker compose ps
-
-restart-nextcloud:
-	docker compose restart nextcloud caddy collabora collabora 
+	./scripts/docker/manage.sh status
 
 # Certificates
 certificates:
-	./scripts/generate-certificates.sh
+	./scripts/certificates/generate-certificates.sh
 
 # Database
 rescan:
-	./scripts/occ.sh files:scan --all
+	./scripts/config/occ.sh files:scan --all
 
 # Nextcloud maintenance
 maintenance-on:
-	./scripts/occ.sh maintenance:mode --on
+	./scripts/config/occ.sh maintenance:mode --on
 
 maintenance-off:
-	./scripts/occ.sh maintenance:mode --off
+	./scripts/config/occ.sh maintenance:mode --off
 
 # Backup
 backup:
@@ -35,7 +36,3 @@ list-backups:
 
 restore:
 	./scripts/backup/restore-borg-backup.sh $(name)
-
-# Server access
-start-ssh: 	
-	cd ./ssh && docker compose up -d

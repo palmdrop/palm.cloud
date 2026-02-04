@@ -1,9 +1,11 @@
 #!/bin/bash
 
-source ./.env
+cd /srv/
+
+source ./server.env
 
 # CA directory
-cd ./ca
+cd ./certificates
 
 # Private key
 echo "Generating private key..."

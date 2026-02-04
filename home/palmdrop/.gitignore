@@ -9,6 +9,8 @@
 *id_ed25519*
 **/.ssh/
 
+/srv/docker/**/data/
+
 /afs/
 /bin/
 /boot/

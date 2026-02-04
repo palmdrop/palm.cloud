@@ -1,5 +1,9 @@
 name: caddy
 
+networks:
+  palmcloud:
+    external: true
+
 services:
   caddy:
     image: caddy:latest

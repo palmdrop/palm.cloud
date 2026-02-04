@@ -4,9 +4,9 @@ networks:
   nextcloud:
     driver: bridge
     internal: true
-    ipam:
-      config:
-        - subnet: $SUBNET
+    #ipam:
+    #  config:
+    #    - subnet: $SUBNET
   palmcloud:
     external: true
 
@@ -69,7 +69,7 @@ services:
        - TRUSTED_PROXIES=${PROXY_IP}
        - OVERWRITEHOST=${DOMAIN}
      networks:
-       homelab:
+       palmcloud:
          ipv4_address: $NEXTCLOUD_IP
        nextcloud:
      depends_on:
@@ -91,6 +91,7 @@ services:
   collabora:
     image: collabora/code:latest
     restart: unless-stopped
+    container_name: nextcloud-collabora
     extra_hosts:
       - "${DOMAIN}:${PROXY_IP}"
     logging:
@@ -108,14 +109,17 @@ services:
     cap_add:
       - MKNOD
     networks:
+      - palmcloud
       - nextcloud
     depends_on:
       - nextcloud
 
   drawio:
     image: jgraph/drawio:latest
+    container_name: nextcloud-drawio
     restart: unless-stopped
     networks:
+      - palmcloud
       - nextcloud
     depends_on: 
       - nextcloud

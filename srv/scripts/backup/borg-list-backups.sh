@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./.env
+source /srv/server.env
 
 set -eou pipefail
 

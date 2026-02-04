@@ -1,5 +1,9 @@
 name: pihole
 
+networks:
+  palmcloud:
+    external: true
+
 services:
   pihole:
     image: pihole/pihole:latest
@@ -22,8 +26,8 @@ services:
       FTLCONF_dns_listeningMode: 'ALL'
       # DNSMASQ_LISTENING: 'all'
     volumes:
-      - './config/etc-pihole:/etc/pihole'
-      - './config/etc-dnsmasq.d:/etc/dnsmasq.d'
+      - './data/etc-pihole:/etc/pihole'
+      - './data/etc-dnsmasq.d:/etc/dnsmasq.d'
     cap_add:
       # See https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
       # Required if you are using Pi-hole as your DHCP server, else not needed
@@ -32,5 +36,5 @@ services:
       # - SYS_TIME
       # Optional, if Pi-hole should get some more processing time
       - SYS_NICE
-    #networks:
-      #- ho
+    networks:
+      - palmcloud

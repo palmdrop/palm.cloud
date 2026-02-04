@@ -2,7 +2,7 @@
 
 set -eou pipefail
 
-source ./.env
+source /srv/server.env
 
 BORG_KEY="${SECRETS_DIR}/backup/borg-repo-key.txt"
 
@@ -18,4 +18,4 @@ echo "BORG is setup! Remember to create a '${BORG_PASSPHRASE_FILE}' file with th
 
 echo: "Also: add the following line to the crontab:"
 # TODO: Do this automatically?
-echo: "0 2 * * * /home/palmdrop/server/scripts/backup/borg-backup.sh >> /var/log/nextcloud-backup.log 2>&1"
+echo: "0 2 * * * /srv/scripts/backup/borg-backup.sh >> /var/log/nextcloud-backup.log 2>&1"

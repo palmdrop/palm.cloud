@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-source /home/palmdrop/server/.env
+source /srv/server.env
 
 TMP_CONFIG_FILE="$BORG_TEMP_DIR/config.php"
 BACKUP_NAME="nextcloud-$(date +%Y%m%d-%H%M%S)"

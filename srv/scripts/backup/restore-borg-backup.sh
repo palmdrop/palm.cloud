@@ -2,6 +2,8 @@
 
 set -eou pipefail
 
+source /srv/server.env
+
 ### SETUP ###
 
 TMP_DIR=/tmp/restore
@@ -17,10 +19,10 @@ cd $TMP_DIR
 echo "Extracting borg data..."
 borg extract $BORG_REPO::$BACKUP_NAME
 
-cd $HOME/server/
-
 echo "Shutting down Nextcloud..."
 docker exec -u www-data $NEXTCLOUD_CONTAINER php occ maintenance:mode --on
+
+cd /srv/docker/nextlcoud
 
 # 1. Stop everything
 docker compose down

@@ -1,8 +1,10 @@
 #!/bin/bash
 
-source ./.env
+cd /srv/
 
-CRON_JOB="0 2 * * * /home/palmdrop/server/scripts/backup/borg-backup.sh >> $NEXTCLOUD_BACKUP_LOG_FILE 2>&1"
+source ./server.env
+
+CRON_JOB="0 2 * * * /srv/scripts/backup/borg-backup.sh >> $NEXTCLOUD_BACKUP_LOG_FILE 2>&1"
 
 echo "Creating cron job..."
 (crontab -l 2>/dev/null; echo "$CRON_JOB") | crontab -
