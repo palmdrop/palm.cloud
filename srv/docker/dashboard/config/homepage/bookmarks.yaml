@@ -1,0 +1,11 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/bookmarks
+
+- Developer:
+    - Github:
+        - abbr: GH
+          href: https://github.com/palmdrop
+    - Twingate:
+        - abbr: TW
+          href: https://palmdrop.twingate.com

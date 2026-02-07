@@ -1,0 +1,21 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Infra:
+    - Pi-hole:
+        icon: pi-hole
+        href: https://pihole.palm.cloud/admin/login
+        widget:
+          type: pihole
+          url: http://pihole:80
+          key: {{HOMEPAGE_VAR_PIHOLE_API_KEY}}
+          version: 6
+- Cloud:
+    - Nextcloud:
+        icon: nextcloud
+        href: https://palm.cloud
+        widget:
+          type: nextcloud
+          url: http://nextcloud:80
+          key: {{HOMEPAGE_VAR_NEXTCLOUD_KEY}}

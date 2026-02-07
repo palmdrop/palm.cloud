@@ -17,7 +17,7 @@ services:
     environment:
       TZ: 'Europe/Stockholm'
       FTLCONF_REPLY_ADDR4: "$LAB_IP"
-      FTLCONF_dns_listeningMode: 'ALL'
+      # FTLCONF_dns_listeningMode: 'ALL'
       # DNSMASQ_LISTENING: 'all'
     volumes:
       - './data/etc-pihole:/etc/pihole'

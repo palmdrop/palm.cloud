@@ -1,0 +1,28 @@
+name: dashboard
+
+networks:
+  infra:
+    external: true
+  palmcloud:
+    external: true
+
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./config/homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    env_file:
+      - ./config/homepage.secrets.env
+    environment:
+      PUID: 1000
+      PGID: 1000
+      HOMEPAGE_ALLOWED_HOSTS: dashboard.${DOMAIN}
+    networks:
+      - infra
+      - palmcloud
+

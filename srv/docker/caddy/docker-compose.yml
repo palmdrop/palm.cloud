@@ -17,8 +17,10 @@ services:
         max-size: "10m"
         max-file: "3"
     ports:
-      - "443:443"
-      - "80:80"
+      #- "443:443"
+      #- "80:80"
+      - "127.0.0.1:80:80"
+      - "127.0.0.1:443:443"
     volumes:
       - ./config/Caddyfile:/etc/caddy/Caddyfile:ro
       - /etc/ssl/certs/${DOMAIN_CERT_FILE}:/etc/ssl/certs/${DOMAIN_CERT_FILE}:ro

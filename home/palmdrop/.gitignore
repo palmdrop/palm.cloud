@@ -5,10 +5,12 @@
 *secrets*
 **/secrets/
 **/.env
+**/.env.local
 *id_rsa*
 *id_ed25519*
 **/.ssh/
 .cfg
+**/logs/*
 
 /srv/docker/**/data/
 

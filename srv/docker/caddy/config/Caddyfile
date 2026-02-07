@@ -43,3 +43,10 @@ pihole.palm.cloud {
  
     tls /etc/ssl/certs/palm.cloud.crt /etc/ssl/private/palm.cloud.key
 }
+
+dashboard.palm.cloud {
+    reverse_proxy homepage:3000
+ 
+    tls /etc/ssl/certs/palm.cloud.crt /etc/ssl/private/palm.cloud.key
+    # tls internal
+}
