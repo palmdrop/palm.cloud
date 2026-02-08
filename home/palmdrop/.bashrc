@@ -21,6 +21,8 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+cd /srv
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ll='ls -lah'

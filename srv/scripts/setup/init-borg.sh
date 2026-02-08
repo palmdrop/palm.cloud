@@ -4,7 +4,7 @@ set -eou pipefail
 
 source /srv/server.env
 
-BORG_KEY="${SECRETS_DIR}/backup/borg-repo-key.txt"
+BORG_KEY="${SECRETS_DIR}/borg/repo-key.txt"
 
 sudo mkdir -p "$BORG_REPO"
 sudo chown $USER:$USER "$BORG_REPO"
