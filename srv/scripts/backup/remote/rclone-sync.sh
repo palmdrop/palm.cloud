@@ -6,7 +6,7 @@ source /srv/server.env
 
 echo "====== Syncing repo to remote ====== "  
 
-rclone -v sync \
+rclone -vP sync \
     $BORG_REPO \
     $RCLONE_NEXTCLOUD_REMOTE:$RCLONE_NEXTCLOUD_REMOTE_BUCKET
 
