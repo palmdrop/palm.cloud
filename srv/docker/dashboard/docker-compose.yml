@@ -5,6 +5,7 @@ networks:
     external: true
   palmcloud:
     external: true
+  internal:
 
 services:
   homepage:
@@ -25,4 +26,13 @@ services:
     networks:
       - infra
       - palmcloud
+      - internal
 
+  utils:
+      build: ./utils
+      container_name: homepage-utils
+      restart: unless-stopped
+      env_file:
+        - ./config/utils.secrets.env
+      networks:
+        - internal

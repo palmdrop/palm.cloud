@@ -11,6 +11,21 @@
           url: http://pihole:80
           key: {{HOMEPAGE_VAR_PIHOLE_API_KEY}}
           version: 6
+    - R2-Backups: 
+        icon: mdi-backup-restore
+        href: https://dash.cloudflare.com/{{HOMEPAGE_VAR_CLOUDFLARE_ACCOUNT_ID}}/r2/overview
+        widget:
+          type: customapi 
+          url: http://utils:8080/r2-usage
+          method: GET
+          headers:
+            Content-Type: application/json
+          mappings:
+            - field: data.viewer.accounts[0].r2StorageAdaptiveGroups[0].max.payloadSize
+              label: Storage
+              format: bytes
+            - field: data.viewer.accounts[0].r2StorageAdaptiveGroups[0].max.objectCount
+              label: Objects
 
 - Cloud:
     - Nextcloud:
