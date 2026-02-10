@@ -1,6 +1,6 @@
-from fastapi import FastAPI
-from fastapi import Request
+from fastapi import FastAPI, Request, HTTPException
 from datetime import datetime, timedelta
+import json
 import requests
 import time
 import os
@@ -67,3 +67,17 @@ def r2_usage():
 
     request.raise_for_status()
     return request.json()
+
+
+# Backup status
+
+BORG_STATUS_FILE= "/backup-status/" + os.environ["BORG_STATUS_FILE_NAME"]
+
+@app.get("/backup-status/borg")
+def borg_backup_status():
+    try:
+        with open(BORG_STATUS_FILE, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        raise HTTPException(404, "borg status file not found")
+

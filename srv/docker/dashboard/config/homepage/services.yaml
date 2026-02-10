@@ -26,6 +26,27 @@
               format: bytes
             - field: data.viewer.accounts[0].r2StorageAdaptiveGroups[0].max.objectCount
               label: Objects
+    - Borg-Backup-Status:
+        icon: mdi-backup-restore
+        widget:
+          type: customapi
+          url: http://utils:8080/backup-status/borg
+          method: GET
+          headers:
+            Content-Type: application/json
+          mappings:
+            - field: status
+              label: Status
+
+            - field: last_run
+              label: Last run
+
+            - field: archive
+              label: Archive
+
+            - field: stats.original_size
+              label: Repo size
+              format: bytes
 
 - Cloud:
     - Nextcloud:

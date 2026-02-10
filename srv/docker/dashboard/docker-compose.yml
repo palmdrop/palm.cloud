@@ -34,5 +34,9 @@ services:
       restart: unless-stopped
       env_file:
         - ./config/utils.secrets.env
+      volumes:
+        - $BACKUP_STATUS_DIR:/backup-status:ro
+      environment:
+        BORG_STATUS_FILE_NAME: $BORG_STATUS_FILE_NAME
       networks:
         - internal
