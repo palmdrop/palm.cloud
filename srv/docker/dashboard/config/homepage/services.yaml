@@ -6,12 +6,13 @@
     - Pi-hole:
         icon: pi-hole
         href: https://pihole.palm.cloud/admin/login
+        siteMonitor: http://pihole:80
         widget:
           type: pihole
           url: http://pihole:80
           key: {{HOMEPAGE_VAR_PIHOLE_API_KEY}}
           version: 6
-    - R2-Backups: 
+    - R2 Backups: 
         icon: mdi-backup-restore
         href: https://dash.cloudflare.com/{{HOMEPAGE_VAR_CLOUDFLARE_ACCOUNT_ID}}/r2/overview
         widget:
@@ -26,7 +27,10 @@
               format: bytes
             - field: data.viewer.accounts[0].r2StorageAdaptiveGroups[0].max.objectCount
               label: Objects
-    - Borg-Backup-Status:
+            - field: data.viewer.accounts[0].r2StorageAdaptiveGroups[0].dimensions.datetime
+              label: Date
+              format: date
+    - Borg Backup Status:
         icon: mdi-backup-restore
         widget:
           type: customapi
@@ -38,9 +42,6 @@
             - field: status
               label: Status
 
-            - field: last_run
-              label: Last run
-
             - field: archive
               label: Archive
 
@@ -48,10 +49,15 @@
               label: Repo size
               format: bytes
 
+            - field: last_run
+              label: Last run
+              format: date
+
 - Cloud:
     - Nextcloud:
         icon: nextcloud
         href: https://palm.cloud
+        siteMonitor: http://nextcloud:80
         widget:
           type: nextcloud
           url: http://nextcloud:80

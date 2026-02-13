@@ -43,6 +43,7 @@ services:
 
   nextcloud:
      image: nextcloud:latest
+     # build: ./containers/nextcloud
      restart: unless-stopped
      container_name: $NEXTCLOUD_CONTAINER
      extra_hosts:
@@ -55,6 +56,7 @@ services:
      volumes:
        - nextcloud:/var/www/html
        - ${NEXTCLOUD_DATA_DIR:-/mnt/data/nextcloud}:/var/www/html/data
+       - ${NEXTCLOUD_PHOTO_DIR:-/mnt/data/media/photos}:/photos
      env_file:
        - ./config/postgres.env 
        - ./config/postgres.secrets.env 

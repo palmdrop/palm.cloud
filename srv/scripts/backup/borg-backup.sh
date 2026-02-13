@@ -20,7 +20,7 @@ print_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 print_error() { echo -e "${RED}[ERROR]${NC} $1"; }
 
 get_now() { 
-    echo "$(date '+%d/%m/%Y %H:%M:%S')";
+    echo "$(date -u +"%Y-%m-%dT%H:%M:%S")";
 }
 
 start=$(get_now)
@@ -102,6 +102,7 @@ if borg create \
     --json \
 	--compression lz4 \
 	--exclude-caches \
+    --exclude "$NEXTCLOUD_DATA_DIR/appdata_*" \
 	"$BORG_REPO::$BACKUP_NAME" \
 	"$NEXTCLOUD_DATA_DIR" \
 	"$BORG_DB_DUMP_FILE" \

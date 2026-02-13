@@ -7,7 +7,7 @@ SERVER_ENV=$SERVER_DIR/server.env
 
 source $SERVER_ENV
 
-directories=($(find $SERVER_DIR/docker/ -type f -name 'docker-compose.yml' -exec dirname {} \;))
+directories=($(find $SERVER_DIR/docker/ -maxdepth 2 -type f -name 'docker-compose.yml' -exec dirname {} \;))
 
 echo "Generating .env files..."
 

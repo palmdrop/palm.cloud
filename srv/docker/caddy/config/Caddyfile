@@ -1,7 +1,11 @@
-palm.cloud {
+{
+    local_certs
+}
+
+palm.cloud { 
     # DrawIO
     handle_path /drawio/* {
-	    reverse_proxy nextcloud-drawio:8080
+        reverse_proxy nextcloud-drawio:8080
     }
 
     # Collabora Office 
@@ -34,19 +38,14 @@ palm.cloud {
         }
     }
 
-    tls /etc/ssl/certs/palm.cloud.crt /etc/ssl/private/palm.cloud.key
+    # tls /etc/ssl/certs/palm.cloud.crt /etc/ssl/private/palm.cloud.key
 }
-
 
 pihole.palm.cloud {
     reverse_proxy pihole:80
- 
-    tls /etc/ssl/certs/palm.cloud.crt /etc/ssl/private/palm.cloud.key
 }
 
 dashboard.palm.cloud {
     reverse_proxy homepage:3000
- 
-    tls /etc/ssl/certs/palm.cloud.crt /etc/ssl/private/palm.cloud.key
-    # tls internal
 }
+

@@ -7,7 +7,9 @@ source /srv/server.env
 echo "====== Syncing repo to remote ====== "  
 
 rclone sync \
-    $BORG_REPO \
-    $RCLONE_NEXTCLOUD_REMOTE:$RCLONE_NEXTCLOUD_REMOTE_BUCKET
+   $BORG_REPO \
+   $RCLONE_NEXTCLOUD_REMOTE:$RCLONE_NEXTCLOUD_REMOTE_BUCKET
+
+echo "Synced at "$(date)""
 
 echo "====== Done syncing backups to remote ====== "  

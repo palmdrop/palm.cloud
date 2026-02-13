@@ -17,25 +17,20 @@ services:
         max-size: "10m"
         max-file: "3"
     ports:
-      #- "443:443"
-      #- "80:80"
       - "127.0.0.1:80:80"
       - "127.0.0.1:443:443"
     volumes:
-      - ./config/Caddyfile:/etc/caddy/Caddyfile:ro
-      - /etc/ssl/certs/${DOMAIN_CERT_FILE}:/etc/ssl/certs/${DOMAIN_CERT_FILE}:ro
-      - /etc/ssl/private/${DOMAIN_KEY_FILE}:/etc/ssl/private/${DOMAIN_KEY_FILE}:ro
-      # use /srv/docker/caddy/data:/data instead?
-      - caddy_data:/data
-      # use /srv/docker/caddy/config:/config instead?
+      # - /etc/ssl/certs/${DOMAIN_CERT_FILE}:/etc/ssl/certs/${DOMAIN_CERT_FILE}:ro
+      # - /etc/ssl/private/${DOMAIN_KEY_FILE}:/etc/ssl/private/${DOMAIN_KEY_FILE}:ro
       - caddy_config:/config
+      - ./config/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./data:/data 
     networks:
       infra:
       palmcloud:
         ipv4_address: $PROXY_IP
 
 volumes:
-  caddy_data:
-    name: caddy_data
   caddy_config:
     name: caddy_config
+

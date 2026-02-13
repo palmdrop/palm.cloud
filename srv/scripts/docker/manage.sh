@@ -8,7 +8,7 @@ DOCKER_DIR=${SERVER_DIR}/docker
 source "$SERVER_DIR/server.env"
 
 # NOTE: twingate-ssh is excluded by design, to avoid accidentally killing the remote SSH connection
-SERVICES=("caddy" "nextcloud" "pihole" "twingate-cloud")
+SERVICES=("caddy" "nextcloud" "pihole" "dashboard" "twingate-cloud")
 
 docker_compose_up() {
     local service="$1"

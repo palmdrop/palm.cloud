@@ -38,6 +38,9 @@ query ($accountTag: String!, $bucket: String!, $since: DateTime!) {
           payloadSize
           objectCount
         }
+        dimensions {
+          datetime
+        }
       }
     }
   }
