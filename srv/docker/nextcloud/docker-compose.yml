@@ -42,8 +42,8 @@ services:
       - nextcloud
 
   nextcloud:
-     image: nextcloud:latest
-     # build: ./containers/nextcloud
+     # image: nextcloud:32-apache
+     build: ./containers/nextcloud
      restart: unless-stopped
      container_name: $NEXTCLOUD_CONTAINER
      extra_hosts:
@@ -68,6 +68,8 @@ services:
        - NEXTCLOUD_DATA_DIR=/var/www/html/data
        - TRUSTED_PROXIES=${PROXY_IP}
        - OVERWRITEHOST=${DOMAIN}
+       - PHP_MEMORY_LIMIT=1G
+       - PHP_UPLOAD_LIMIT=10G
      networks:
        palmcloud:
          ipv4_address: $NEXTCLOUD_IP
@@ -77,7 +79,7 @@ services:
        - redis
 
   cron:
-     image: nextcloud:latest
+     image: nextcloud:32-apache
      container_name: nextcloud-cron
      restart: unless-stopped
      volumes:
